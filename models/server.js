@@ -4,16 +4,24 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 const fs = require('fs');
 const cors = require("cors");
+
+const {dbConnection} = require("../db/config");
 class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
+        //conectar a BD
+        this.dbConnection();
 
         //middlewares
         this.addOptions();
 
         //rutas de aplicación
         this.routes();
+    }
+
+    async dbConnection() {
+        await dbConnection();
     }
 
     addOptions(){
