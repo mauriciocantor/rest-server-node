@@ -2,9 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 const {check} = require("express-validator");
-const {fieldValidation} = require("../middlewares/field-validation");
-const {isRoleValid, emailExist, userIdExist} = require("../helpers/dbValidators");
+// const {fieldValidation} = require("../middlewares/field-validation");
+// const {validateJWT} = require("../middlewares/validateJWT");
+// const {/*isAdminRole,*/ hasRole} = require("../middlewares/validateRoles");
+// Habilitando la importación de middleware desde un archivo central index
+const {fieldValidation, validateJWT, hasRole} = require("../middlewares");
 
+const {isRoleValid, emailExist, userIdExist} = require("../helpers/dbValidators");
 const {
   getUsers,
   postUsers,
@@ -35,6 +39,9 @@ router.put('/:id', [
 ],putUsers);
 
 router.delete('/:id', [
+    validateJWT,
+    // isAdminRole,
+    hasRole('ADMIN_ROLE', 'VENTAS_ROLE'),
     check('id', 'No es un ID Válido').isMongoId().custom(userIdExist),
     fieldValidation,
 ],deleteUsers);

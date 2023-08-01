@@ -52,6 +52,8 @@ const putUsers = async (req = request, res= response, next) =>{
 
 const deleteUsers = async (req = request, res= response, next) =>{
     const {id} = req.params;
+    const {userAuthenticated} = req;
+    // const {uid} = req;
     //borrado fisico
     // const user = await User.findByIdAndDelete(id);
 
@@ -59,7 +61,8 @@ const deleteUsers = async (req = request, res= response, next) =>{
     const user = await User.findByIdAndUpdate(id, {state: false}, {new: true} );
 
     res.json({
-        user
+        user,
+        userAuthenticated
     });
 }
 
