@@ -9,7 +9,7 @@ CMD [ "npm", "run", "start:dev" ]
 FROM development as builder
 WORKDIR /usr/src/app
 #RUN rm -rf node_modules
-RUN npm ci --only=production
+#RUN npm ci --only=production
 #RUN npm run build
 
 # Production stage
