@@ -8,7 +8,7 @@ CMD [ "npm", "run", "start:dev" ]
 # Builder stage
 FROM development as builder
 WORKDIR /usr/src/app
-RUN rm -rf node_modules
+#RUN rm -rf node_modules
 RUN npm ci --only=production
 #RUN npm run build
 
@@ -17,4 +17,4 @@ FROM alpine:latest as production
 RUN apk --no-cache add nodejs ca-certificates
 WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app ./
-CMD [ "node", "./bin/www.js" ]
+CMD [ "node", "./bin/www" ]
