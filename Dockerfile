@@ -8,10 +8,9 @@ CMD [ "npm", "run", "start:dev" ]
 # Builder stage
 FROM development as builder
 WORKDIR /usr/src/app
-RUN ls -l
 RUN rm -rf node_modules
 RUN npm ci --only=production
-RUN npm run start
+#RUN npm run build
 
 # Production stage
 FROM alpine:latest as production
