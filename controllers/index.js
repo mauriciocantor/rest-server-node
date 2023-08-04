@@ -1,5 +1,10 @@
 const getIndex = (req, res, next) =>{
-    res.json({msg: 'Get index'});
+    const {protocol, hostname, port} = req;
+
+    res.render("index", {
+        google_id: process.env.GOOGLE_CLIENT_ID,
+        url_success:`${protocol}://${hostname}:${process.env.PORT}/auth/google`
+    });
 }
 
 const postIndex = (req, res, next) =>{

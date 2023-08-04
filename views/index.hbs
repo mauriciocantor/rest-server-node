@@ -1,2 +1,48 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<h2>google Sign-in</h2>
+
+<div id="g_id_onload"
+     data-client_id={{google_id}}
+     data-callback="handleCredentialResponse"
+     data-auto_prompt="false">
+</div>
+<div class="g_id_signin"
+     data-type="standard"
+     data-size="large"
+     data-theme="outline"
+     data-text="sign_in_with"
+     data-shape="rectangular"
+     data-logo_alignment="left">
+</div>
+<button id="sign-out">Sign-out</button>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+    const buttonSignOut = document.getElementById('sign-out');
+    buttonSignOut.addEventListener('click', ()=>{
+        console.log(google.accounts.id);
+        google.accounts.id.disableAutoSelect();
+        google.accounts.id.revoke(localStorage.getItem('email'), ()=>{
+            localStorage.clear();
+            location.reload();
+        });
+    });
+
+    async function handleCredentialResponse(response) {
+        // decodeJwtResponse() is a custom function defined by you
+        // to decode the credential response.
+        // response.credential;
+        // console.log('este es google token: ', response.credential);
+        await fetch("{{url_success}}", {
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'id_token': response.credential
+            })
+        })
+                .then( resp => resp.json())
+                .then( resp => localStorage.setItem('email', resp.user.email))
+                .catch(console.warn)
+
+    }
+</script>
