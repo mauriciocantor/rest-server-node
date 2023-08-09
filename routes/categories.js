@@ -18,6 +18,7 @@ router.get('/:id', [
 
 router.post('/', [
     validateJWT,
+    check('name', 'Debe ingresar el nombre del producto').not().isEmpty(),
     fieldValidation
 ], saveCategories);
 
