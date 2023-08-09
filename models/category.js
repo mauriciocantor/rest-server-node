@@ -3,7 +3,7 @@ const {Schema, model} = require('mongoose')
 const CategorySchema = Schema({
     name: {
         type: String,
-        required: [true, 'El nobre de la categoria es obligatorio']
+        required: [true, 'El nombre de la categoria es obligatorio']
     },
     status: {
         type: Boolean,
@@ -17,8 +17,7 @@ const CategorySchema = Schema({
     },
     userModifier: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+        ref: 'User'
     }
 });
 

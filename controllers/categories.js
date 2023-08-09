@@ -73,7 +73,7 @@ const updateCategory = async (req, res, next) => {
     const {status, user, ...body} = req.body;
     const {userAuthenticated} = req;
 
-    body.userModifier = userAuthenticated.uid;
+    body.userModifier = userAuthenticated._id;
 
     const category = await Category.findOneAndUpdate({_id:id}, body,{new: true}).populate('user');
 
@@ -92,7 +92,7 @@ const deleteCategory = async (req = request, res= response, next) =>{
     const {userAuthenticated} = req;
 
     //borrado logico
-    const category = await Category.findByIdAndUpdate(id, {status: false, userModifier: userAuthenticated.uid}, {new: true} );
+    const category = await Category.findByIdAndUpdate(id, {status: false, userModifier: userAuthenticated._id}, {new: true} );
 
     res.json({
         category,
