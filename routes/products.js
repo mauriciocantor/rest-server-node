@@ -7,6 +7,7 @@ const {check} = require("express-validator");
 const {fieldValidation, validateJWT, hasRole} = require("../middlewares");
 const {getProducts, saveProduct, getProductById, updateProduct, deleteProduct} = require("../controllers/products");
 const {productExist} = require("../middlewares/validateProduct");
+const {categoryExist} = require("../middlewares/validateCategory");
 
 /* GET test listing. */
 router.get('/', getProducts);
@@ -21,6 +22,7 @@ router.post('/', [
     check('name', 'Debe ingresar el nombre del producto').not().isEmpty(),
     check('price', 'Debe ingresar el nombre del producto').not().isEmpty(),
     check('description', 'Debe ingresar el nombre del producto').not().isEmpty(),
+    check('category', 'Debe ingresar el numero de categoria valida para el producto').isMongoId().custom(categoryExist),
     fieldValidation
 ], saveProduct);
 

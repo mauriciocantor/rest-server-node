@@ -44,11 +44,12 @@ const getProductById = async (req = request, res = response, next) =>{
 const saveProduct = async (req = request, res = response, next) =>{
     const {name, ...body} = req.body;
     const {userAuthenticated} = req;
-    const productDB = await Product.findOne({name});
+    const nameUpper = name.toUpperCase();
+    const productDB = await Product.findOne({  name: nameUpper });
 
     if(productDB){
         return res.status(400).json({
-            msg:`La categoria ${name} ya existe`
+            msg:`El producto (${name}) ya existe`
         });
     }
 
