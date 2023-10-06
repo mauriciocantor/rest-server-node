@@ -34,6 +34,9 @@ const ProductSchema = Schema({
     userModifier: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    img: {
+        type: String
     }
 });
 

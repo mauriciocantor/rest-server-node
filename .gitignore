@@ -388,3 +388,5 @@ dist
 !.idea/runConfigurations
 
 # End of https://www.toptal.com/developers/gitignore/api/node,webstorm,webstorm+all,jetbrains
+
+uploads/**/

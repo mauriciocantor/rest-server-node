@@ -28,10 +28,18 @@ const emailExistToLogin = async (email="")=>{
     }
 }
 
+const collectionAvailable = (collection='', collections=[]) =>{
+    if(!collections.includes(collection)){
+        throw new Error(`La colección ${collection} no es permitida, (${collections.join(', ')})`);
+    }
+    return true;
+}
+
 
 module.exports = {
     isRoleValid,
     emailExist,
     userIdExist,
-    emailExistToLogin
+    emailExistToLogin,
+    collectionAvailable
 }
